@@ -1,5 +1,5 @@
 
-    import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HotelReservationSystem {
@@ -99,6 +99,9 @@ public class HotelReservationSystem {
         rooms.add(new Room(105, "Deluxe", 150.00));
         rooms.add(new Room(106, "Suite", 250.00));
 
+        // List to store reservations
+        ArrayList<Reservation> reservations = new ArrayList<>();
+
         // Main menu
         while (true) {
             System.out.println("\n--- Hotel Reservation System ---");
@@ -141,6 +144,7 @@ public class HotelReservationSystem {
                             roomFound = true;
                             if (room.bookRoom()) {
                                 Reservation reservation = new Reservation(guestName, room);
+                                reservations.add(reservation); // Store the reservation
                                 reservation.displayReservationDetails();
                                 System.out.print("Enter payment amount: $");
                                 double paymentAmount = scanner.nextDouble();
@@ -156,8 +160,15 @@ public class HotelReservationSystem {
                     break;
 
                 case 3:
-                    // View Reservation Details (Just a placeholder since we are not storing reservations globally)
-                    System.out.println("This feature is not fully implemented yet. You can view the details when making a reservation.");
+                    // View Reservation Details
+                    System.out.println("\n--- Reservation Details ---");
+                    if (reservations.isEmpty()) {
+                        System.out.println("No reservations found.");
+                    } else {
+                        for (Reservation res : reservations) {
+                            res.displayReservationDetails();
+                        }
+                    }
                     break;
 
                 case 4:
@@ -172,6 +183,3 @@ public class HotelReservationSystem {
         }
     }
 }
-
-    
-
